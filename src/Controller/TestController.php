@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestController
 {
+    /**
+     * @Route("/test", name="index")
+     */
     public function index()
     {
         dd("ça fonctionne");
