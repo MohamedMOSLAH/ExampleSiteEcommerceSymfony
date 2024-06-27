@@ -14,7 +14,7 @@ class HelloController
     public function hello($name){
         
         return new Response("Hello $name");
-    }
+    };
 }
 
 ?>
