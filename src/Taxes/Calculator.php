@@ -20,4 +20,12 @@ class Calculator
         $this->logger->info("Un calcul a lieu : $prix");
         return $prix * (20 / 100);
     }
+
+    public function detect(int $amount){
+        if($amount>100){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
