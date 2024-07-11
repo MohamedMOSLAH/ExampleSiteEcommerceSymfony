@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
         $productRepository = $em->getRepository(Product::class);
         $product = $productRepository->find(3);
-        $product->setPrice(2500);
+        $em->remove($product);
         $em->flush();
         return $this->render('home.html.twig');
     }
