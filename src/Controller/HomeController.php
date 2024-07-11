@@ -15,14 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
      */
     public function homepage(EntityManagerInterface $em){
 
-        $product = new Product;
-        $product->setName('Table en métal')
-                ->setPrice(3000)
-                ->setSlug('table-en-metal');
-        $em->persist($product);
+        $productRepository = $em->getRepository(Product::class);
+        $product = $productRepository->find(3);
+        $product->setPrice(2500);
         $em->flush();
-            
-                
         return $this->render('home.html.twig');
     }
  }
