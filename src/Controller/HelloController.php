@@ -24,6 +24,7 @@ class HelloController extends AbstractController
      */
     public function example()
     {
+        
         return $this->render('example.html.twig', [
             'age' => 35
         ]);
