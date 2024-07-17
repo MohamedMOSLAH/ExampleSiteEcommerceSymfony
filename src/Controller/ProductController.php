@@ -8,6 +8,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -56,7 +57,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product/create", name="product_create")
      */
-    public function create(FormFactoryInterface $factory)
+    public function create(FormFactoryInterface $factory, CategoryRepository $categoryRepository)
     {
         $builder = $factory->createBuilder();
 
@@ -76,15 +77,14 @@ class ProductController extends AbstractController
                     'class' => 'form-control',
                     'placeholder' => 'Tapez le prix du produit en €'
                 ]
-            ])
-            ->add('category', ChoiceType::class, [
+                ])->add('category', EntityType::class, [
                 'label' => 'Catégorie',
                 'attr' => ['class' => 'form-control'],
                 'placeholder' => '-- Choisir une catégorie --',
-                'choices' => [
-                    'Catégorie 1' => 1,
-                    'Catégorie 2' => 2
-                ]
+                'class' => Category::class,
+                'choice_label' => function (Category $category){
+                    return strtoupper($category->getName());
+                } 
             ]);
 
         $form = $builder->getForm();
