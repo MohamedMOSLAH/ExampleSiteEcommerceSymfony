@@ -63,19 +63,21 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product/{id}/edit", name="product_edit")
      */
-    public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em) {
+    public function edit($id, ProductRepository $productRepository, Request $request, 
+    EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator) {
         $product = $productRepository->find($id);
         
         $form = $this->createForm(ProductType::class, $product);
-
-        //$form->setData($product); 
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()) {
             $em->flush();
 
-            dd($product);
+            return $this->redirectToRoute('product_show', [
+                'category_slug' => $product->getCategory()->getSlug(),
+                'slug' => $product->getSlug()
+            ]);
         }
 
         $formView = $form->createView();
@@ -103,7 +105,10 @@ class ProductController extends AbstractController
             
             $em->persist($product);
             $em->flush();
-            dd($product);
+            return $this->redirectToRoute('product_show', [
+                'category_slug' => $product->getCategory()->getSlug(),
+                'slug' => $product->getSlug()
+            ]);
         }
     
         $formView = $form->createView();
