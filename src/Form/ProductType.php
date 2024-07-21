@@ -36,24 +36,43 @@ class ProductType extends AbstractType
                 ])->add('mainPicture', UrlType::class, [
                   'label'=> 'Image du product',
                   'attr' => ['placeholder' => 'Tapez une URL d\'image !']  
+                ])
+                ->add('category', EntityType::class, [
+                    'label' => 'Catégorie',
+                    'placeholder' => '-- Choisir une catégorie --',
+                    'class' => Category::class,
+                    'choice_label' => function (Category $category){
+                        return strtoupper($category->getName());
+                    } 
                 ]);
-        
+            ;
+    
+    
+         
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) {
+            $product = $event->getData();
+
+            if($product->getPrice() !== null) {
+                $product->setPrice($product->getPrice() * 100);
+            }
+        });
+
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
             $form = $event->getForm();
 
             /** @var Product */
             $product = $event->getData();
 
-            if($product->getId() === null){
-                $form->add('category', EntityType::class, [
-                    'label' => 'Catégorie',
-                    'placeholder' => 'Catégorie',
-                    'class' => '-- Choisir une catégorie--',
-                    'choice_label' => function(Category $category){
-                        return strtoupper($category->getName());
-                    }
-                ]);
-            }
+            // if($product->getId() === null){
+            //     $form->add('category', EntityType::class, [
+            //         'label' => 'Catégorie',
+            //         'placeholder' => 'Catégorie',
+            //         'class' => '-- Choisir une catégorie--',
+            //         'choice_label' => function(Category $category){
+            //             return strtoupper($category->getName());
+            //         }
+            //     ]);
+            // }
         });
 
     }
