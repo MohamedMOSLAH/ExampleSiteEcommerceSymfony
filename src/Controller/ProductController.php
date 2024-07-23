@@ -71,29 +71,12 @@ class ProductController extends AbstractController
      */
     public function edit($id, ProductRepository $productRepository, Request $request, 
     EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator, ValidatorInterface $validator) {
-        $client = [
-            'nom' => 'Chamla',
-            'prenom' => 'Lior',
-            'voiture' => [
-                'marque' => 'Hyundai',
-                'couleur' => 'Noir'
-            ]
-            ];
-        $collection = new Collection([
-            'nom' => new NotBlank(['message' => "Le nom ne doit pas être vide !"]),
-            'prenom' => [
-                new NotBlank(['message' => "Le prénom ne doit pas être vide"]),
-                new Length(['min' => 3, 'minMessage' => "Le prénom ne doit pas faire moins de 34 caractères"])
-            ],
-            'voiture' => new Collection([
-                'marque' => new NotBlank(['message' => 'La marque de la voiture est obligatoire']),
-                'couleur' => new NotBlank(['message' => 'La couleur de la voiture est obligatoire'])
-            ])
-        ]);    
-        $age = 200;
+      
+        $product = new Product;
+        $product->setName("Salut à tous")
+                ->setPrice(300);
 
-        $resultat = $validator->validate($client, $collection);
-        
+        $resultat = $validator->validate($product);
         if($resultat->count() > 0){
             dd("Il y a des erreurs ", $resultat);
         }
