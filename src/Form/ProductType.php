@@ -10,7 +10,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Form\DataTransformer\CentimesTransformer;
-use App\Form\Type\PriceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -31,11 +30,12 @@ class ProductType extends AbstractType
                     'placeholder' => 'Tapez une description assez courte mais parlante pour le visiteur'
                 ]
             ])
-            ->add('price', PriceType::class, [
+            ->add('price', MoneyType::class, [
                 'label' => 'Prix du produit',
                 'attr' => [
                     'placeholder' => 'Tapez le prix du produit en €'
                 ],
+                'divisor' => 100
                 ])->add('mainPicture', UrlType::class, [
                   'label'=> 'Image du product',
                   'attr' => ['placeholder' => 'Tapez une URL d\'image !']  
