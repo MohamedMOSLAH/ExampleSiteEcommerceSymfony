@@ -71,11 +71,12 @@ class ProductController extends AbstractController
      */
     public function edit($id, ProductRepository $productRepository, Request $request, 
     EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator, ValidatorInterface $validator) {
-      
      
         $product = $productRepository->find($id);
         
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            "validation_groups" => ["large-name", "with-price"]
+        ]);
 
         $form->handleRequest($request);
 
