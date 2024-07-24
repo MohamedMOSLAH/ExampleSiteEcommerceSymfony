@@ -74,9 +74,7 @@ class ProductController extends AbstractController
      
         $product = $productRepository->find($id);
         
-        $form = $this->createForm(ProductType::class, $product, [
-            "validation_groups" => ["large-name", "with-price"]
-        ]);
+        $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
@@ -108,7 +106,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid() ){
 
             $product->setSlug(strtolower($slugger->slug($product->getName())));
             
