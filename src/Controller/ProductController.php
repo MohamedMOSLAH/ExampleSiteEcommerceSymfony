@@ -73,8 +73,8 @@ class ProductController extends AbstractController
     EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator, ValidatorInterface $validator) {
       
         $product = new Product;
-        $product->setName("Salut à tous")
-                ->setPrice(300);
+        $product->setName("Salut à tous");
+               // ->setPrice(300);
 
         $resultat = $validator->validate($product);
         if($resultat->count() > 0){
