@@ -32,6 +32,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductController extends AbstractController
 {
+   
     /**
      * @Route("category/{slug}", name="product_category")
      */
