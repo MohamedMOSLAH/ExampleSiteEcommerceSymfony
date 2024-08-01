@@ -34,7 +34,7 @@ class ProductController extends AbstractController
 {
    
     /**
-     * @Route("category/{slug}", name="product_category")
+     * @Route("/{slug}", name="product_category")
      */
     public function category($slug, CategoryRepository $categoryRepository): Response
     {
