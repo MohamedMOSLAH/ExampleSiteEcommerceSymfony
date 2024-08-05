@@ -11,9 +11,7 @@
         </div>
     {% endif %}
     {{ form_start(formView) }}
-    {{ form_row(formView.email) }}
-    {{ form_row(formView.password) }}
-
+    {{ form_widget(formView) }}
     <button type="submit" class="btn btn-success">Connexion</button>
     {{ form_end(formView) }}
 {% endblock %}
