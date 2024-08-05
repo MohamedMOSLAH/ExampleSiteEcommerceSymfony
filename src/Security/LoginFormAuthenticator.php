@@ -48,8 +48,22 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        return $request->attributes->get(Security::AUTHENTICATION_ERROR, $exception);
-        // TODO: Implement onAuthenticationFailure() method.
+        $errorMsg = "Erreur d'authentification"; 
+
+        if ($exception->getMessage() === "Bad credentials.") 
+        {
+            $errorMsg = "Cette adresse email n'est pas connue.";
+        } elseif ($exception->getMessage() === "The presented password is invalid.") 
+        {
+            $errorMsg = "Les informations de connexion ne correspondent pas";
+        }
+
+        $exception = new AuthenticationException($errorMsg);
+
+        $request->attributes->set(Security::AUTHENTICATION_ERROR, $exception);
+        $request->attributes->set(Security::LAST_USERNAME, $request->request->all()['login']['email']);
+        
+        return null;
     }
 
 //    public function start(Request $request, AuthenticationException $authException = null): Response

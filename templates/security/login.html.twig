@@ -7,14 +7,13 @@
 
     {% if error %}
         <div class="alert alert-danger">
-            {{ error.message }}
+            {{ error.message  }}
         </div>
     {% endif %}
-
     {{ form_start(formView) }}
-    {{ form_widget(formView) }}
+    {{ form_row(formView.email) }}
+    {{ form_row(formView.password) }}
 
     <button type="submit" class="btn btn-success">Connexion</button>
-
     {{ form_end(formView) }}
 {% endblock %}
