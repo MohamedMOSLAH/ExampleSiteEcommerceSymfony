@@ -8,14 +8,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class CategoryVoter extends Voter
 {
-    public const EDIT = 'CAN_EDIT';
-    public const VIEW = 'CAN_VIEW';
+    public const EDIT = 'POST_EDIT';
+    public const VIEW = 'POST_VIEW';
 
     protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT])
+        return in_array($attribute, [self::EDIT, self::VIEW])
             && $subject instanceof \App\Entity\Category;
     }
 
@@ -30,7 +30,12 @@ class CategoryVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
-                return $subject->getOwner() === $user;
+                // logic to determine if the user can EDIT
+                // return true or false
+                break;
+            case self::VIEW:
+                // logic to determine if the user can VIEW
+                // return true or false
                 break;
         }
 
