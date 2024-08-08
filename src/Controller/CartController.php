@@ -7,13 +7,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartController extends AbstractController
 {
     /**
      * @Route("/cart/add/{id}", name="cart_add", requirements={"id": "\d+"})
      */
-    public function add($id, Request $request, ProductRepository $productRepository): Response
+    public function add($id, ProductRepository $productRepository, SessionInterface $session): Response
     {
         // 0. Securisation : est-ce que le produit existe ?
         $product = $productRepository->find($id);
@@ -24,7 +25,7 @@ class CartController extends AbstractController
 
         // 1. Retourver le panier dans la session (sous forme de tableau)
         // 2. Si il n'existe pas encore , alors prendre un tableau vide
-        $cart = $request->getSession()->get('cart', []);
+        $cart = $session->get('cart', []);
 
         // [12 => 3, 29 => 2]
 
@@ -39,7 +40,13 @@ class CartController extends AbstractController
 
 
         // 6. Enregistrer le tableau mis à jour dans la session
-        $request->getSession()->set('cart', $cart);
+        $session->set('cart', $cart);
+
+        /** @var FlashBag */
+        $flashBag = $session->getBag('flashes');
+
+        $flashBag->add('success', "Le produit a bien été ajouté au panier");
+        
 
         return $this->redirectToRoute('product_show', [
             'category_slug' => $product->getCategory()->getSlug(),
