@@ -43,6 +43,11 @@ class CartService {
         $total = 0;
         foreach($this->session->get('cart', []) as $id => $qty){
             $product = $this->productRepository->find($id);
+
+            if(!$product){
+                continue;
+            }
+
             $total += $product->getPrice() * $qty;
         }
 
@@ -57,10 +62,11 @@ class CartService {
         foreach($this->session->get('cart',[]) as $id => $qty){
             $product = $this->productRepository->find($id);
 
-            $detailCart[] = [
-                'product' => $product,
-                'qty' => $qty
-            ];
+            if(!$product){
+                continue;
+            }
+
+            $detailCart[] = new CartItem($product, $qty);
         }
 
         return $detailCart;
