@@ -61,14 +61,8 @@ class Purchase
      */
     private $purchasedAt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="purchases")
-     */
-    private $products;
-
     public function __construct()
     {
-        $this->products = new ArrayCollection();
     }
 
 
@@ -173,27 +167,5 @@ class Purchase
         return $this;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->products->removeElement($product);
-
-        return $this;
-    }
+   
 }
