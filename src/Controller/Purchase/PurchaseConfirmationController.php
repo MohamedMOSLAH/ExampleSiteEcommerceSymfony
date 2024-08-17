@@ -2,6 +2,8 @@
 
 namespace App\Controller\Purchase;
 
+use Symfony\Component\Routing\Annotation\Route;
+
 
 class PurchaseConfirmationController {
     /**
@@ -9,5 +11,6 @@ class PurchaseConfirmationController {
      */
     public function confirm() {
         
+
     }
 }
