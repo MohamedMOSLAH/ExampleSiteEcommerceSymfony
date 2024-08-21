@@ -24,7 +24,7 @@ class PurchaseConfirmationController extends AbstractController {
     }   
     /**
      * @Route("/purchase/confirm", name="purchase_confirm")
-     * @IsGranted("ROLE_USER","Vous devez être connecté pour configurer une commande")
+     * @IsGranted("ROLE_USER", message="Vous devez être connecté pour configurer une commande")
      */
     public function confirm(Request $request) {
         // 1. Nous voulons lire les données du formulaire
@@ -54,11 +54,11 @@ class PurchaseConfirmationController extends AbstractController {
 
         // 6. Nous allons la lier avec l'utilisateur actuellement connecté (Security)
         $purchase->setUser($user)
-            ->setPurchasedAt(new DateTime());
+            ->setPurchasedAt(new DateTime())
+            ->setTotal($this->cartService->getTotal());
 
         $this->em->persist($purchase);    
         // 7. Nous allons la lier avec les produits qui sont dans le panier (CarteService)
-        $total = 0;
 
         foreach($this->cartService->getDetailedCartItems() as $cartItem){
             $purchaseItem = new PurchaseItem;
@@ -69,15 +69,13 @@ class PurchaseConfirmationController extends AbstractController {
                 ->setTotal($cartItem->getTotal())
                 ->setProductPrice($cartItem->product->getPrice());
 
-            $total += $cartItem->getTotal();
-
             $this->em->persist($purchaseItem);
         }
 
-        $purchase->setTotal($total);
-
         // 8. Nous allons enregistrer la commande (EntityManagerInterface)
         $this->em->flush();
+
+        $this->cartService->empty();
 
         $this->addFlash('success',"La commande a bien été enregistrée");
         return $this->redirectToRoute('purchase_index');

@@ -25,6 +25,10 @@ class CartService {
         $this->session->set('cart', $cart);
     }
 
+    public function empty(){
+        $this->saveCart([]);
+    }
+
 
     public function add($id){
            // 1. Retourver le panier dans la session (sous forme de tableau)
