@@ -71,7 +71,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         return null;
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, AuthenticationException $authException = null): ?Response
     {
     }
 }
