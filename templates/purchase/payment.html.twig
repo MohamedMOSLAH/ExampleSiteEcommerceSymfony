@@ -27,6 +27,6 @@
             const stripe = Stripe("pk_test_51PrS77HCnGw85cxm5rk8sjWZpBiONRnBoxMG6GHMOoZj6G271aCXsitxgGYcAyF2EyysMgUeHiGrRpaAMZOTNx4y00hWEmZPTR");
             const elements = stripe.elements();
             // Stripe injects an iframe into th DOM
-            
+            card.mount("#card-element");            
         </script>
 {% endblock %}
