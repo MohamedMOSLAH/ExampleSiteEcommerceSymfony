@@ -6,4 +6,27 @@
 
 {% block body %}
     <h1>Payer votre commande avec Stripe</h1>
+
+       <form id="payment-form">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit" class="btn btn-success">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Payer avec Stripe !</span>
+      </button>
+      <p id="card-error" role="alert"></p>
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+        {{ parent() }}
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            const stripe = Stripe("pk_test_51PrS77HCnGw85cxm5rk8sjWZpBiONRnBoxMG6GHMOoZj6G271aCXsitxgGYcAyF2EyysMgUeHiGrRpaAMZOTNx4y00hWEmZPTR");
+            const elements = stripe.elements();
+            // Stripe injects an iframe into th DOM
+            
+        </script>
 {% endblock %}
