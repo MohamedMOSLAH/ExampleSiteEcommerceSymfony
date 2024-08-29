@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Purchase
 {
     public const STATUS_PENDING = 'PENDING';
-    public const STATUS_PAIS = 'PAID';
+    public const STATUS_PAID = 'PAID';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

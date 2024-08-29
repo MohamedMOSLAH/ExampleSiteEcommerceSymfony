@@ -108,7 +108,7 @@ class AppFixtures extends Fixture
             }
 
             if($faker->boolean(90)){
-                $purchase->setStatus(Purchase::STATUS_PAIS);
+                $purchase->setStatus(Purchase::STATUS_PAID);
             }
             
             $manager->persist($purchase);
