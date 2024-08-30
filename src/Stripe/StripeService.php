@@ -15,6 +15,10 @@ class StripeService {
         $this->publicKey = $publicKey;
     }
 
+    public function getPublicKey(): string {
+        return $this->publicKey;
+    }
+
     public function getPaymentIntent(Purchase $purchase) {
         \Stripe\Stripe::setApiKey($this->secretKey);
         

@@ -21,39 +21,10 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         const clientSecret = '{{ clientSecret }}';
-        const stripe = Stripe("pk_test_51PrS77HCnGw85cxm5rk8sjWZpBiONRnBoxMG6GHMOoZj6G271aCXsitxgGYcAyF2EyysMgUeHiGrRpaAMZOTNx4y00hWEmZPTR");
-        const elements = stripe.elements();
-        
-        const card = elements.create("card");
-        // Stripe injects an iframe into th DOM
-        card.mount("#payment-element");
-        card.on("change", function(event){
-          // Disable the Pay button if there are no card details in the Element
-          document.querySelector("button").disabled = event.empty;
-          document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
-        });
-        
-        const form = document.getElementById("payment-form");
-        form.addEventListener("submit", function(event) {
-          event.preventDefault();
-          // Complete payment when the submit button is clicked
-          stripe
-            .confirmCardPayment(clientSecret, {
-              payment_method: {
-                card: card
-              }
-            })
-            .then(function(result){
-              if(result.error){
-                // Show error to your customer
-                console.log(result.error.message);
-              } else {
-                // The payment succeded!
-                window.location.href = "{{ url('purchase_payment_success', { 'id': purchase.id } ) }}"
-              }
-            })
-        })
+        const stripePublicKey = "{{ stripePublicKey }}";
+        const redirectAfterSuccesssUrl = "{{ url('purchase_payment_success', { 'id': purchase.id } ) }}";
     </script>
+     <script src="/js/payment.js"></script>
 {% endblock %}
 {% block javascripts %}
         {{ parent() }}
