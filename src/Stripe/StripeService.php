@@ -10,7 +10,7 @@ class StripeService {
     protected $publicKey;
 
     public function __construct(string $secretKey, string $publicKey)
-    {   
+    {  
         $this->secretKey = $secretKey;
         $this->publicKey = $publicKey;
     }
