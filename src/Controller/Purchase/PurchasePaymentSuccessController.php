@@ -3,10 +3,12 @@ namespace App\Controller\Purchase;
 
 use App\Entity\Purchase;
 use App\Cart\CartService;
+use App\Event\PurchaseSuccessEvent;
 use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PurchasePaymentSuccessController extends AbstractController {
@@ -16,7 +18,7 @@ class PurchasePaymentSuccessController extends AbstractController {
      * @IsGranted("ROLE_USER")
      */
     public function success($id, PurchaseRepository $purchaseRepository, EntityManagerInterface
-    $em, CartService $cartService
+    $em, CartService $cartService, EventDispatcherInterface $dispatcher
     ) {
         // 1. Je récupère la commande
         $purchase = $purchaseRepository->find($id);
@@ -33,6 +35,9 @@ class PurchasePaymentSuccessController extends AbstractController {
 
         // 3. Je vide le panier
         $cartService->empty();
+
+        $purhcaseEvent = new PurchaseSuccessEvent($purchase);
+        $dispatcher->dispatch($purhcaseEvent, 'purchase.success');
         
         
 
