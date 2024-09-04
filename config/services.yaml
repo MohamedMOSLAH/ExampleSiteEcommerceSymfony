@@ -39,7 +39,8 @@ services:
 
   App\Stripe\StripeService:
     arguments:
-      $publicKey: "%env(STRIPE_SECRET_KEY)%"
-      $secretKey: "%env(STRIPE_PUBLIC_KEY)%"
+      $publicKey: "%env(STRIPE_PUBLIC_KEY)%"
+      $secretKey: "%env(STRIPE_SECRET_KEY)%"
 
   App\EventDisptacher\PrenomSubscriber: ~
+  App\EventDisptacher\PurchaseSuccessEmailSubscriber: ~
