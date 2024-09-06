@@ -22,7 +22,7 @@ class ProductViewEventSubscriber implements EventSubscriberInterface {
         ];
     }
     public function sendEmail(ProductViewEvent $roductViewEvent) {
-       $this->logger->info("Email envoyé à l'admin pour le produit n°".$roductViewEvent->getProduct()->getId());
+       $this->logger->info("Email envoyé à l'admin pour le produit ".$roductViewEvent->getProduct()->getId());
     }
 
 }

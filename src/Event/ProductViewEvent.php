@@ -6,7 +6,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ProductViewEvent extends Event {
 
-    private $product;
+    protected $product;
 
     public function __construct(Product $product)
     {
