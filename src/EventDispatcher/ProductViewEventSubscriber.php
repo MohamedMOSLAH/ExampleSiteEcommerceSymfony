@@ -2,15 +2,16 @@
 
 namespace App\EventDisptacher;
 
-use Psr\Log\LoggerInterface;
 use App\Event\ProductViewEvent;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 
 class ProductViewEventSubscriber implements EventSubscriberInterface {
 
     protected $logger;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger) 
     {
         $this->logger = $logger;
     }
@@ -20,9 +21,10 @@ class ProductViewEventSubscriber implements EventSubscriberInterface {
         return [
             'product.view' => 'sendEmail'
         ];
-    }
-    public function sendEmail(ProductViewEvent $roductViewEvent) {
-       $this->logger->info("Email envoyé à l'admin pour le produit ".$roductViewEvent->getProduct()->getId());
-    }
+    } 
 
+    public function sendEmail(ProductViewEvent $productViewEvent)
+    {
+        $this->logger->info("Le produit  n° ". $productViewEvent->getProduct()->getId(). " est vue");
+    }
 }
