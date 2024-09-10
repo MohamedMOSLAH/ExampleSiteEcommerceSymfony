@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
-class ProductViewEventSubscriber implements EventSubscriberInterface {
+class ProductViewEmailSubscriber implements EventSubscriberInterface {
 
     protected $logger;
 

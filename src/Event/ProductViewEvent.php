@@ -16,4 +16,5 @@ class ProductViewEvent extends Event {
     public function getProduct(): Product {
         return  $this->product;
     }
+    
 }
