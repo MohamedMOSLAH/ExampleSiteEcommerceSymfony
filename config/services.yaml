@@ -45,3 +45,6 @@ services:
   App\EventDisptacher\PrenomSubscriber: ~
   App\EventDisptacher\PurchaseSuccessEmailSubscriber: ~
   App\EventDisptacher\ProductViewEmailSubscriber: ~
+
+  App\Doctrine\Listener\ProductSlugListener:
+    tags: [{ name: "doctrine.event_listener", event: prePersist }]
