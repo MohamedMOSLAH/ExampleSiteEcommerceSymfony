@@ -9,10 +9,10 @@
         <th>Total</th>
     </thead>
     <tbody>
-        {% for item in pruchase.pruchaseItems %}
+        {% for item in purchase.purchaseItems %}
             <tr>
                 <td>{{ item.productName }}</td>
-                <td>{{ item.quatity }}</td>
+                <td>{{ item.quantity }}</td>
                 <td>{{ item.productPrice / 100 }} €</td>
                 <td>{{ item.total / 100}} €</td>
             </tr>      

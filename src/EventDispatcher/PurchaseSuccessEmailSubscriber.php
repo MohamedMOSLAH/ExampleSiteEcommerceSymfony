@@ -36,13 +36,14 @@ class PurchaseSuccessEmailSubscriber implements EventSubscriberInterface {
         $currentUser = $this->security->getUser();
 
         // 2. Récupérer la commande (je la trouverai dans PurchaseSuccessEvent)
+        /** @var Purchase */
         $purchase = $purchaseSuccessEvent->getPurchase();
 
         // 3. Ecrire le mail (nouveau TemplatedEmail)
         $email = new TemplatedEmail();
         $email->to(new Address($currentUser->getEmail(), $currentUser->getFullName()))
             ->from("contact@mail.com")
-            //->subject("Bravo, votre commande ({ $purchase->getId() }) a bien été confirmée")
+            ->subject("Bravo, votre commande ({$purchase->getId()}) a bien été confirmée")
             ->htmlTemplate('emails/purchase_success.html.twig')
             ->context([
                 'purchase' => $purchase,

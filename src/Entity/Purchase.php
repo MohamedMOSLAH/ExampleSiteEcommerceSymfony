@@ -93,6 +93,9 @@ class Purchase
         foreach($this->purchaseItems as $item) {
             $total += $item->getTotal();
         }
+        if(empty($this->total)){
+            $this->total = $total;
+        }
     }
 
     public function getId(): ?int
