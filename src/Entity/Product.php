@@ -64,6 +64,12 @@ class Product
     private $purchaseItems;
 
 
+    //  /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+
+    // private string $pictureName;
+
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
@@ -184,5 +190,18 @@ class Product
 
         return $this;
     }
+    /*
+    public function getPictureName(): string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(string $pictureName): self
+    {
+        $this->pictureName = $pictureName;
+
+        return $this;
+    }*/
+
 
 }
