@@ -11,13 +11,14 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Form\DataTransformer\CentimesTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
+use Symfony\Component\Validator\Constraints\File;
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -51,8 +52,18 @@ class ProductType extends AbstractType
                     'choice_label' => function (Category $category){
                         return strtoupper($category->getName());
                     } 
-                ]);
-            ;
+                ])
+               /* ->add('pictureName', FileType::class, [
+                    'label' => 'Upload image',
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '1024k',
+                        ])
+                    ],
+                ]) */
+                ;
     
         //$builder->get('price')->addModelTransformer(new CentimesTransformer);
         // $builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) {
